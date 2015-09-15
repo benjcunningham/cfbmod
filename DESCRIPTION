@@ -1,0 +1,14 @@
+Package: cfbmod
+Type: Package
+Title: Mine College Football Data
+Version: 0.0.0.9001
+Author: Ben Cunningham <benjamin-cunningham@uiowa.edu> [aut, cre]
+Maintainer: Ben Cunningham <benjamin-cunningham@uiowa.edu>
+Description: Scrape college football data from the web.
+License: MIT
+LazyData: TRUE
+URL: https://github.com/benjcunningham/cfbmod
+BugReports: https://github.com/benjcunningham/cfbmod/issues
+Imports:
+    magrittr,
+    XML
