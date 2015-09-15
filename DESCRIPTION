@@ -11,4 +11,5 @@ URL: https://github.com/benjcunningham/cfbmod
 BugReports: https://github.com/benjcunningham/cfbmod/issues
 Imports:
     magrittr,
-    XML
+    XML,
+    zoo

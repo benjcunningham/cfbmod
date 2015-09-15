@@ -8,6 +8,7 @@
 #' @return A data frame of the requested leaderboard
 #' @import XML
 #' @import magrittr
+#' @import zoo
 #' @export
 #' @examples
 #' # Capture team rushing offense stats for 2013
