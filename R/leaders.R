@@ -6,9 +6,7 @@
 #' @param pos Position of the requested rankings
 #' @param yr Year of the requested rankings
 #' @return A data frame of the requested leaderboard
-#' @import XML
 #' @import magrittr
-#' @import zoo
 #' @export
 #' @examples
 #' # Capture team rushing offense stats for 2013
@@ -26,9 +24,10 @@ getLeaders <- function(x = c('total', 'downs', 'passing', 'rushing',
 
   df <-
     paste0(espn, x, '/position/', pos,'/year/', yr) %>%
-    readHTMLTable(as.data.frame = TRUE, stringsAsFactors = FALSE) %>%
+    XML::readHTMLTable(as.data.frame = TRUE,
+                       stringsAsFactors = FALSE) %>%
     .[[1]] %>%
-    set_names( value = .[.[1] == 'RK', ][1, ] ) %>%
+    magrittr::set_names( value = .[.[1] == 'RK', ][1, ] ) %>%
     .[.[1] != 'RK', ]
 
   for (i in c(1, 3:length(df))) {
@@ -37,7 +36,7 @@ getLeaders <- function(x = c('total', 'downs', 'passing', 'rushing',
 
   df <- df[!is.na(df[3]), ]
 
-  df$RK <- na.locf(df$RK)
+  df$RK <- zoo::na.locf(df$RK)
 
   names(df) <- gsub('[ /]', '.', names(df))
 
