@@ -14,5 +14,6 @@ BugReports: https://github.com/benjcunningham/cfbmod/issues
 Imports:
     magrittr,
     plyr,
+    rvest,
     XML,
     zoo
