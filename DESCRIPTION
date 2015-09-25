@@ -15,5 +15,6 @@ Imports:
     magrittr,
     plyr,
     rvest,
+    stringr,
     XML,
     zoo
