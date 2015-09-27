@@ -12,8 +12,10 @@ getSchedule <- function(team, yr = format(Sys.Date(), '%Y')) {
 
   espn <- 'http://espn.go.com/college-football/team/fpi/_/id/'
 
+  url <- paste0(espn, getID(team), '/year/', yr)
+
   df <-
-    paste0(espn, getID(team), '/year/', yr) %>%
+    url %>%
     XML::readHTMLTable(as.data.frame = TRUE,
                        stringsAsFactors = FALSE) %>%
     .[[5]] %>%
