@@ -52,12 +52,23 @@ getSchedule <- function(team, yr = format(Sys.Date(), '%Y')) {
     stringr::str_replace('Sept', 'Sep') %>%
     as.Date('%a, %b %d %Y')
 
+  ids <-
+    rvest::html(url) %>%
+    rvest::html_nodes('.score a') %>%
+    rvest::html_attrs() %>%
+    rvest::pluck(1) %>%
+    sapply('[[', 1) %>%
+    strsplit('=') %>%
+    sapply('[[', 2)
+
+  df$GAME.ID <- c(ids, rep(NA, nrow(df) - length(ids)))
+
   ord <- c('DATE', 'VENUE', 'OPP', 'OPP.RK', 'RESULT', 'PTS.FOR',
-           'PTS.OPP', 'OPP.FPI', 'GAME.SCORE')
+           'PTS.OPP', 'OPP.FPI', 'GAME.SCORE', 'GAME.ID')
 
   df <- df[ , ord]
 
-  for (i in c(4, 6:length(df))) {
+  for (i in c(4, 6:(length(df) - 1))) {
     df[ , i] <- suppressWarnings(as.numeric(df[ , i]))
   }
 
