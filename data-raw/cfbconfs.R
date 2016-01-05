@@ -6,7 +6,7 @@ raw <-
   html() %>%
   html_nodes('.span-4 .span-2')
 
-confs <- data.frame()
+cfbconfs <- data.frame()
 
 for (i in 1:length(raw)) {
 
@@ -25,8 +25,8 @@ for (i in 1:length(raw)) {
         html_text(),
       stringsAsFactors = FALSE
     ) %>%
-    rbind(confs, .)
+    rbind(cfbconfs, .)
 
 }
 
-devtools::use_data(confs, overwrite = TRUE)
+devtools::use_data(cfbconfs, overwrite = TRUE)

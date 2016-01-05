@@ -6,7 +6,7 @@ raw <-
   html() %>%
   html_nodes('.mod-container .mod-open-list')
 
-teams <- data.frame()
+cfbteams <- data.frame()
 
 for (i in 1:length(raw)) {
 
@@ -30,8 +30,8 @@ for (i in 1:length(raw)) {
         as.integer(),
       stringsAsFactors = FALSE
     ) %>%
-    rbind(teams, .)
+    rbind(cfbteams, .)
 
 }
 
-devtools::use_data(teams, overwrite = TRUE)
+devtools::use_data(cfbteams, overwrite = TRUE)
