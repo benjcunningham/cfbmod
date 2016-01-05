@@ -10,7 +10,7 @@ cfbconfs <- data.frame()
 
 for (i in 1:length(raw)) {
 
-  confs <-
+  cfbconfs <-
     data.frame(
       DIV =
         raw %>%

@@ -10,7 +10,7 @@ cfbteams <- data.frame()
 
 for (i in 1:length(raw)) {
 
-  teams <-
+  cfbteams <-
     data.frame(
       CONF =
         raw %>%
