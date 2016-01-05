@@ -8,7 +8,7 @@
 #'  \item DIV: NCAA Division-I subdivision (FBS, FCS)
 #'  \item CONF: Athletic conference
 #' }
-"confs"
+"cfbconfs"
 
 #' Database identifiers for teams
 #'
@@ -20,4 +20,4 @@
 #'  \item TEAM: NCAA Division-I team
 #'  \item ESPN.ID: espn.go.com team identifier
 #' }
-"teams"
+"cfbteams"
