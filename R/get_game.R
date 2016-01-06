@@ -1,9 +1,30 @@
+#' Retrieve the play-by-play for a given game
+#'
+#' Scrapes the play-by-play for a given football game.
+#'
+#' @param ids Vector of \code{espn.go.com} game identifiers, as either
+#'   characters or numerics.
+#' @return A list of team information and play-by-play data presented in
+#'   a dataframe. If \code{`teams`} is a vector, a list of lists is
+#'   returned.
+#' @import magrittr
+#' @export
+#' @examples
+#' \dontrun{
+#' get_game(c(400852682, 400852737))
+#' }
 get_game <- function(ids) {
 
   lapply(seq_along(ids), function(i) get_game_(ids[i]))
 
 }
 
+#' Non-vectorized play-by-play scraper
+#'
+#' @return A list of team information and play-by-play presented in a
+#'   dataframe.
+#' @rdname get_game
+#' @keywords internal
 get_game_ <-function(id) {
 
   espn <-
@@ -13,7 +34,6 @@ get_game_ <-function(id) {
     espn %>%
     xml2::read_html()
 
-  # Begin scraping team info
   raw.teams <-
     raw %>%
     rvest::html_nodes('.team-info')
@@ -24,7 +44,6 @@ get_game_ <-function(id) {
       HOME = team_info_(raw.teams[2])
     )
 
-  # Begin scraping play-by-play
   raw.accord <-
     raw %>%
     rvest::html_nodes('.accordion-item')
@@ -101,8 +120,12 @@ get_game_ <-function(id) {
 
 }
 
-
-
+#' Retrieve cumulative scores at end of each drive for a team
+#'
+#' @return A vector where elements represent one team's cumulative
+#'   number of points at the end of each drive and all other elements
+#'   are \code{NA}.
+#' @keywords internal
 drive_score <- function(accordion, side, half) {
 
   accordion %>%
@@ -116,6 +139,16 @@ drive_score <- function(accordion, side, half) {
 
 }
 
+#' Retrieve cumulative score at end of drive
+#'
+#' @param accordion HTML for a team drive "accordion" on
+#'   \code{espn.go.com}.
+#' @param side Team to scrape; either `home` or `away`.
+#' @return A vector the length of the number of plays in a drive, where
+#'   the last element is one team's cumulative number of points at the
+#'   end of the drive and all other elements are \code{NA}.
+#' @rdname drive_score
+#' @keywords internal
 drive_score_ <- function(accordion, side) {
 
   accordion %>%
@@ -125,6 +158,12 @@ drive_score_ <- function(accordion, side) {
 
 }
 
+#' Retrieve the offensive team identifier for a drive
+#'
+#' @param accordion HTML for a team drive "accordion" on
+#'   \code{espn.go.com}.
+#' @return A team identifier as a character
+#' @keywords internal
 logo_id_ <- function(accordion) {
 
   accordion %>%
@@ -134,6 +173,11 @@ logo_id_ <- function(accordion) {
 
 }
 
+#' Adjust a vector of cumulative points to points scored per drive
+#'
+#' @param v Vector of cumulative points.
+#' @return A vector of points as numerics
+#' @keywords internal
 parse_pts_ <- function(v) {
 
   v[!is.na(v)] %>%
@@ -145,6 +189,11 @@ parse_pts_ <- function(v) {
 
 }
 
+#' Retrieve high-level information for a team at game time
+#'
+#' @param side Team to scrape; either `home` or `away`.
+#' @return A list of team information
+#' @keywords internal
 team_info_ <- function(side) {
 
   list(
