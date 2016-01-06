@@ -106,8 +106,8 @@ get_schedule_ <- function(id, yr) {
   schedule$GAME.SCORE <- as.numeric(schedule$GAME.SCORE)
 
   schedule <-
-    c('DATE', 'VENUE', 'OPP', 'OPP.RK', 'RESULT', 'PTS.FOR', 'PTS.OPP',
-      'OPP.FPI', 'GAME.SCORE', 'GAME.ID') %>%
+    c('GAME.ID', 'DATE', 'VENUE', 'OPP', 'OPP.RK', 'RESULT', 'PTS.FOR',
+      'PTS.OPP', 'OPP.FPI', 'GAME.SCORE') %>%
     {schedule[ , .]}
 
   schedule
